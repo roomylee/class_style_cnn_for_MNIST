@@ -51,6 +51,30 @@ def load_data_and_labels(path):
 
     return images, labels
 
+def load_test_data(path):
+    # read training data from CSV file
+    data = pd.read_csv(path)
+
+    print('data({0[0]},{0[1]})'.format(data.shape))
+    print(data.head())
+
+    images = data.values
+    images = images.astype(np.float)
+
+    # convert from [0:255] => [0.0:1.0]
+    images = np.multiply(images, 1.0 / 255.0)
+    print('images({0[0]},{0[1]})'.format(images.shape))
+
+    image_size = images.shape[1]
+    print('image_size => {0}'.format(image_size))
+
+    # in this case all images are square
+    image_width = image_height = np.ceil(np.sqrt(image_size)).astype(np.uint16)
+    print('image_width => {0}\nimage_height => {1}'.format(image_width, image_height))
+
+    return images
+
+
 def batch_iter(data, batch_size, num_epochs, shuffle=True):
     """
     Generates a batch iterator for a dataset.
