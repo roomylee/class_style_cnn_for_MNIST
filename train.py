@@ -2,8 +2,6 @@ import tensorflow as tf
 import datetime
 from cnn import ConvNet
 import data_helpers
-import losses
-import eval
 
 
 def train(batch_size=50,
@@ -28,7 +26,6 @@ def train(batch_size=50,
     with tf.name_scope("accuracy"):
         correct_prediction = tf.equal(tf.argmax(input_y, 1), tf.argmax(output, 1))
         accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
 
     # start TensorFlow session
     saver = tf.train.Saver()
